@@ -1,16 +1,27 @@
 const express = require('express');
+const hbs = require('hbs');
 
 var app = express();
 
+hbs.registerPartial(__dirname + '/views/partials');
+app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public')); //static content serving 
 
 app.get('/', (req, res) => {    //is this a type of API??
-    res.send('</h1>Ohkay..<h1>');
+    res.render('home.hbs', {
+        pageTitle: 'Home Page',
+        welcomeMessage: 'Well hello there!!',
+        currentYear: new Date().getFullYear()
+    });
 });
 
 app.get('/about', (req, res) => {
-    res.send('about page');
+    res.render('about.hbs', {
+        pageTitle: 'About Page',
+        currentYear: new Date().getFullYear()
+    });
 });
+
 
 app.get('/bad', (req, res) => {
         res.send({
