@@ -3,23 +3,32 @@ const hbs = require('hbs');
 
 var app = express();
 
-hbs.registerPartial(__dirname + '/views/partials'); //setting up for using handlebars partial files
-
-app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials'); //setting up for using handlebars partials
+app.set('view engine', 'hbs');//setting the view engine as hbs. But what is the view engine?
 app.use(express.static(__dirname + '/public')); //static content serving,using middleware
 
-app.get('/', (req, res) => {    //is this a type of API??
+app.use((req, res, next) => {//next checks when the current request is done
+
+});//registers middleware
+
+hbs.registerHelper('getCurrentYear', () => {
+    return new Date().getFullYear();
+});
+
+hbs.registerHelper('screamIt', (text) => {
+    return text.toUpperCase();
+});
+
+app.get('/', (req, res) => {//is this a type of API??
     res.render('home.hbs', {
         pageTitle: 'Home Page',
-        welcomeMessage: 'Well hello there!!',
-        currentYear: new Date().getFullYear()
+        welcomeMessage: 'Well hello there!!'
     });
 });
 
 app.get('/about', (req, res) => {
     res.render('about.hbs', {
-        pageTitle: 'About Page',
-        currentYear: new Date().getFullYear()
+        pageTitle: 'About Page'
     });
 });
 
