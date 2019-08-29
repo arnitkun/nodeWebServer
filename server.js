@@ -3,9 +3,10 @@ const hbs = require('hbs');
 
 var app = express();
 
-hbs.registerPartial(__dirname + '/views/partials');
+hbs.registerPartial(__dirname + '/views/partials'); //setting up for using handlebars partial files
+
 app.set('view engine', 'hbs');
-app.use(express.static(__dirname + '/public')); //static content serving 
+app.use(express.static(__dirname + '/public')); //static content serving,using middleware
 
 app.get('/', (req, res) => {    //is this a type of API??
     res.render('home.hbs', {
