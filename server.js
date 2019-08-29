@@ -10,7 +10,11 @@ app.use(express.static(__dirname + '/public')); //static content serving,using m
 
 app.use((req, res, next) => {//next checks when the current request is done
     var now = new Date().toString();
-    console.log(`${now}: ${req.method} ${req.url}`);
+    var log = `${now}: ${req.method} ${req.url}`;
+    console.log(log);
+    fs.appendFile('server.log', log + '\n', (err) => {
+      if(err) console.log('Unable to append log.');  
+    });
     next();
 });//app.use registers middleware
 
