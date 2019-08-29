@@ -18,6 +18,10 @@ app.use((req, res, next) => {//next checks when the current request is done
     next();
 });//app.use registers middleware
 
+app.use('/maintenance', (req, res, next) => {
+    res.render('maintenance.hbs');
+});
+
 hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear();
 });
